@@ -202,3 +202,29 @@ findEvenNumFinalEL.addEventListener("submit", (e) => {
     const result = findNumPositiveMin();
     findEvenNumFinalResultEl.innerHTML = `Kết quả: ${result}`;
 });
+
+// =================================================================================
+// Bài 6: Đổi chỗ
+//=================================================================================
+//INPUT
+const reversePositionNumEL = $(".reversePositionNum");
+const reversePositionNumResultEl = $(".reversePositionNum_result");
+const reversePositionNum1El = $(".reversePositionNum-1");
+const reversePositionNum2El = $(".reversePositionNum-2");
+
+//HANDLE
+function reversePositionNum() {
+    let result = "Không có số chẵn";
+    const i1 = +reversePositionNum1El.value;
+    const i2 = +reversePositionNum2El.value;
+    result = [...numCurrent];
+    [result[i2], result[i1]] = [result[i1], result[i2]];
+    return result;
+}
+
+//OUTPUT
+reversePositionNumEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = reversePositionNum();
+    reversePositionNumResultEl.innerHTML = `Mảng sau khi đổi: ${result}`;
+});
