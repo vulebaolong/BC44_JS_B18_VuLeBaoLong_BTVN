@@ -154,30 +154,26 @@ findNumMinEl.addEventListener("submit", function (e) {
 });
 
 // =================================================================================
-// Bài 4: tạo div
+// Bài 4: Tìm số dương nhỏ nhất
 //=================================================================================
 //INPUT
-// const createDivEL = $(".createDiv");
-// const createDivResultEL = $(".createDiv_result");
+const findNumPositiveMinEL = $(".findNumPositiveMin");
+const findNumPositiveMinResultEl = $(".findNumPositiveMin_result");
 
 //HANDLE
-// function createDiv() {
-//     let result = "";
-//     for (let i = 1; i <= 10; i++) {
-//         if (i % 2 === 0) {
-//             //chẵn
-//             result += `<div class="alert alert-primary">Div chẵn: ${i}</div>`;
-//         } else {
-//             //lẻ
-//             result += `<div class="alert alert-danger">Div lẻ: ${i}</div>`;
-//         }
-//     }
-//     return result;
-// }
+function findNumPositiveMin() {
+    let result = numCurrent[0];
+    numCurrent.forEach((e) => {
+        if (e < result && e > 0) {
+            result = e;
+        }
+    });
+    return result;
+}
 
 //OUTPUT
-// createDivEL.addEventListener("submit", (e) => {
-//     e.preventDefault();
-//     const result = createDiv();
-//     createDivResultEL.innerHTML = `<p class='mb-3'>Kết quả: </p>${result}`;
-// });
+findNumPositiveMinEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = findNumPositiveMin();
+    findNumPositiveMinResultEl.innerHTML = `Kết quả: ${result}`;
+});
