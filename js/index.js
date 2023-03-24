@@ -177,3 +177,28 @@ findNumPositiveMinEL.addEventListener("submit", (e) => {
     const result = findNumPositiveMin();
     findNumPositiveMinResultEl.innerHTML = `Kết quả: ${result}`;
 });
+
+// =================================================================================
+// Bài 5: Tìm số chẵn cuối cùng
+//=================================================================================
+//INPUT
+const findEvenNumFinalEL = $(".findEvenNumFinal");
+const findEvenNumFinalResultEl = $(".findEvenNumFinal_result");
+
+//HANDLE
+function findNumPositiveMin() {
+    let result = "Không có số chẵn";
+    numCurrent.forEach((e) => {
+        if (e % 2 === 0) {
+            result = e;
+        }
+    });
+    return result;
+}
+
+//OUTPUT
+findEvenNumFinalEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = findNumPositiveMin();
+    findEvenNumFinalResultEl.innerHTML = `Kết quả: ${result}`;
+});
