@@ -46,6 +46,14 @@ inputChangeColor.addEventListener("input", function name() {
 });
 
 // =================================================================================
+// BS5 TOOLTIP
+//=================================================================================
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+);
+
+// =================================================================================
 // NUMBER CURRENT
 //=================================================================================
 //INPUT
@@ -65,33 +73,33 @@ function addNum(params) {
 numForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const result = addNum();
-    addNumResultEl.innerHTML = `Số hiện có: ${result}`;
+    addNumResultEl.innerHTML = `Số hiện có: ${result.join(" | ")}`;
 });
 
 // =================================================================================
-// Bài 1: Tính số nguyên dương
+// Bài 1: Tính tổng số dương
 //=================================================================================
 //INPUT
-// const calPositiveIntegersForm = $(".calPositiveIntegers");
-// const calPositiveIntegers_result = $(".calPositiveIntegers_result");
+const calTotalPositiveNumForm = $(".calTotalPositiveNum");
+const calTotalPositiveNumResultEL = $(".calTotalPositiveNum_result");
 
 //HANDLE
-// function calMark() {
-//     let result = 0;
-//     let n = 0;
-//     while (n < 10000) {
-//         result++;
-//         n = n + result;
-//     }
-//     return result;
-// }
+function calMark() {
+    let result = 0;
+    numCurrent.forEach((e) => {
+        if (e > 0) {
+            result += e;
+        }
+    });
+    return result;
+}
 
 //OUTPUT
-// calPositiveIntegersForm.addEventListener("submit", function (e) {
-//     e.preventDefault();
-//     const result = calMark();
-//     calPositiveIntegers_result.innerHTML = `Kết quả: ${result}`;
-// });
+calTotalPositiveNumForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const result = calMark();
+    calTotalPositiveNumResultEL.innerHTML = `Kết quả: ${result}`;
+});
 
 // =================================================================================
 // Bài 2: Tính tổng

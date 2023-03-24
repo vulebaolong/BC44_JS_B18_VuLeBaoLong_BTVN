@@ -288,3 +288,8 @@ body {
         /* transition: all 0.3s; */
     }
 }
+
+/* style tooltip bs */
+em {
+    color: var(--color-bg-1);
+}
