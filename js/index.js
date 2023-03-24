@@ -129,29 +129,29 @@ calCountPositiveNumEl.addEventListener("submit", function (e) {
 });
 
 // =================================================================================
-// Bài 3: Tính giai thừa
+// Bài 3: Tìm số nhỏ nhất
 //=================================================================================
 //INPUT
-// const calFactorialEL = $(".calFactorial");
-// const calFactorialResultEL = $(".calFactorial_result");
-// const calFactorialNameEl = $(".calFactorialName");
+const findNumMinEl = $(".findNumMin");
+const findNumMinResultEl = $(".findNumMin_result");
 
 //HANDLE
-// function calTncn() {
-//     const n = +calFactorialNameEl.value;
-//     let result = 1;
-//     for (let i = 1; i <= n; i++) {
-//         result *= i;
-//     }
-//     return result;
-// }
+function countMinNum() {
+    let result = numCurrent[0];
+    numCurrent.forEach((e) => {
+        if (e < result) {
+            result = e;
+        }
+    });
+    return result;
+}
 
 //OUTPUT
-// calFactorialEL.addEventListener("submit", function (e) {
-//     e.preventDefault();
-//     const result = calTncn();
-//     calFactorialResultEL.innerHTML = `Kết quả: ${result}`;
-// });
+findNumMinEl.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const result = countMinNum();
+    findNumMinResultEl.innerHTML = `Kết quả: ${result}`;
+});
 
 // =================================================================================
 // Bài 4: tạo div
