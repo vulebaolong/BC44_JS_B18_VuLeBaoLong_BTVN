@@ -46,109 +46,132 @@ inputChangeColor.addEventListener("input", function name() {
 });
 
 // =================================================================================
-// Bài 1: Tính số nguyên dương
+// NUMBER CURRENT
 //=================================================================================
 //INPUT
-const calPositiveIntegersForm = $(".calPositiveIntegers");
-const calPositiveIntegers_result = $(".calPositiveIntegers_result");
+const numForm = $(".num");
+const numInputEl = $(".num-input");
+const addNumResultEl = $(".add_num-result");
+let numCurrent = [];
 
 //HANDLE
-function calMark() {
-    let result = 0;
-    let n = 0;
-    while (n < 10000) {
-        result++;
-        n = n + result;
-    }
-    return result;
+function addNum(params) {
+    numCurrent.push(+numInputEl.value);
+    numInputEl.value = "";
+    return numCurrent;
 }
 
 //OUTPUT
-calPositiveIntegersForm.addEventListener("submit", function (e) {
+numForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const result = calMark();
-    calPositiveIntegers_result.innerHTML = `Kết quả: ${result}`;
+    const result = addNum();
+    addNumResultEl.innerHTML = `Số hiện có: ${result}`;
 });
+
+// =================================================================================
+// Bài 1: Tính số nguyên dương
+//=================================================================================
+//INPUT
+// const calPositiveIntegersForm = $(".calPositiveIntegers");
+// const calPositiveIntegers_result = $(".calPositiveIntegers_result");
+
+//HANDLE
+// function calMark() {
+//     let result = 0;
+//     let n = 0;
+//     while (n < 10000) {
+//         result++;
+//         n = n + result;
+//     }
+//     return result;
+// }
+
+//OUTPUT
+// calPositiveIntegersForm.addEventListener("submit", function (e) {
+//     e.preventDefault();
+//     const result = calMark();
+//     calPositiveIntegers_result.innerHTML = `Kết quả: ${result}`;
+// });
 
 // =================================================================================
 // Bài 2: Tính tổng
 //=================================================================================
 //INPUT
-const calSumEl = $(".calSum");
-const calSumResultEL = $(".calSum_result");
-const calSumInputXEL = $(".calSum_input-x");
-const calSumInputNEL = $(".calSum_input-n");
+// const calSumEl = $(".calSum");
+// const calSumResultEL = $(".calSum_result");
+// const calSumInputXEL = $(".calSum_input-x");
+// const calSumInputNEL = $(".calSum_input-n");
 
 //HANDLE
-function calSum() {
-    let x = +calSumInputXEL.value;
-    let n = +calSumInputNEL.value;
-    let count = n;
-    for (let i = 1; i <= count; i++) {
-        if (i > 1) {
-            n = n + Math.pow(x, i);
-        }
-    }
-    return n;
-}
+// function calSum() {
+//     let x = +calSumInputXEL.value;
+//     let n = +calSumInputNEL.value;
+//     let count = n;
+//     for (let i = 1; i <= count; i++) {
+//         if (i > 1) {
+//             n = n + Math.pow(x, i);
+//         }
+//     }
+//     return n;
+// }
 
 //OUTPUT
-calSumEl.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const result = calSum();
-    calSumResultEL.innerHTML = `Kết quả: ${result}`;
-});
+// calSumEl.addEventListener("submit", function (e) {
+//     e.preventDefault();
+//     const result = calSum();
+//     calSumResultEL.innerHTML = `Kết quả: ${result}`;
+// });
 
 // =================================================================================
 // Bài 3: Tính giai thừa
 //=================================================================================
 //INPUT
-const calFactorialEL = $(".calFactorial");
-const calFactorialResultEL = $(".calFactorial_result");
-const calFactorialNameEl = $(".calFactorialName");
+// const calFactorialEL = $(".calFactorial");
+// const calFactorialResultEL = $(".calFactorial_result");
+// const calFactorialNameEl = $(".calFactorialName");
 
 //HANDLE
-function calTncn() {
-    const n = +calFactorialNameEl.value;
-    let result = 1;
-    for (let i = 1; i <= n; i++) {
-        result *= i;
-    }
-    return result;
-}
+// function calTncn() {
+//     const n = +calFactorialNameEl.value;
+//     let result = 1;
+//     for (let i = 1; i <= n; i++) {
+//         result *= i;
+//     }
+//     return result;
+// }
 
 //OUTPUT
-calFactorialEL.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const result = calTncn();
-    calFactorialResultEL.innerHTML = `Kết quả: ${result}`;
-});
+// calFactorialEL.addEventListener("submit", function (e) {
+//     e.preventDefault();
+//     const result = calTncn();
+//     calFactorialResultEL.innerHTML = `Kết quả: ${result}`;
+// });
 
 // =================================================================================
 // Bài 4: tạo div
 //=================================================================================
 //INPUT
-const createDivEL = $(".createDiv");
-const createDivResultEL = $(".createDiv_result");
+// const createDivEL = $(".createDiv");
+// const createDivResultEL = $(".createDiv_result");
 
 //HANDLE
-function createDiv() {
-    let result = "";
-    for (let i = 1; i <= 10; i++) {
-        if (i % 2 === 0) {
-            //chẵn
-            result += `<div class="alert alert-primary">Div chẵn: ${i}</div>`;
-        } else {
-            //lẻ
-            result += `<div class="alert alert-danger">Div lẻ: ${i}</div>`;
-        }
-    }
-    return result;
-}
+// function createDiv() {
+//     let result = "";
+//     for (let i = 1; i <= 10; i++) {
+//         if (i % 2 === 0) {
+//             //chẵn
+//             result += `<div class="alert alert-primary">Div chẵn: ${i}</div>`;
+//         } else {
+//             //lẻ
+//             result += `<div class="alert alert-danger">Div lẻ: ${i}</div>`;
+//         }
+//     }
+//     return result;
+// }
 
 //OUTPUT
-createDivEL.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const result = createDiv();
-    createDivResultEL.innerHTML = `<p class='mb-3'>Kết quả: </p>${result}`;
-});
+// createDivEL.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     const result = createDiv();
+//     createDivResultEL.innerHTML = `<p class='mb-3'>Kết quả: </p>${result}`;
+// });
