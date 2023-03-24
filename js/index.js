@@ -228,3 +228,140 @@ reversePositionNumEL.addEventListener("submit", (e) => {
     const result = reversePositionNum();
     reversePositionNumResultEl.innerHTML = `Mảng sau khi đổi: ${result}`;
 });
+
+// =================================================================================
+// Bài 7: Sắp xếp tăng dần
+//=================================================================================
+//INPUT
+const sortUpEL = $(".sortUp");
+const sortUpResultEl = $(".sortUp_result");
+
+//HANDLE
+function sortUp() {
+    const result = [...numCurrent];
+
+    // SẮP XẾP TỪ BÉ ĐẾN LƠN
+    // result.sort((a, b) => a - b);
+    for (let i = 0; i < result.length - 1; i++) {
+        let min = i;
+
+        //lặp [1...4] - [2...4] - [3...4]
+        // vòng lặp thu hẹp dần nhờ vào n = i + 1
+        for (let n = i + 1; n < result.length; n++) {
+            if (result[n] < result[min]) {
+                min = n;
+            }
+        }
+
+        //hoán đổi
+        [result[min], result[i]] = [result[i], result[min]];
+    }
+    return result;
+}
+
+//OUTPUT
+sortUpEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = sortUp();
+    sortUpResultEl.innerHTML = `Mảng sau khi sắp xếp: ${result}`;
+});
+
+// =================================================================================
+// Bài 8: Tìm số nguyên tố đầu tiên
+//=================================================================================
+//INPUT
+const findPrimeNumFirstEL = $(".findPrimeNumFirst");
+const findPrimeNumFirstResultEl = $(".findPrimeNumFirst_result");
+
+//HANDLE
+function isPrime(n) {
+    if (n <= 1) {
+        return false;
+    }
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return -1;
+}
+function findPrimeNum() {
+    let result = -1;
+    result = numCurrent.find((e) => {
+        return isPrime(e);
+    });
+    result = result || -1;
+    return result;
+}
+
+//OUTPUT
+findPrimeNumFirstEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = findPrimeNum();
+    findPrimeNumFirstResultEl.innerHTML = `Kết quả: ${result}`;
+});
+
+// =================================================================================
+// Bài 9: Đếm số nguyên tố
+//=================================================================================
+//INPUT
+const countIntegerNumEL = $(".countIntegerNum");
+const countIntegerNumResultEl = $(".countIntegerNum_result");
+
+//HANDLE
+function countInteger() {
+    result = -1;
+    numCurrent.forEach((e, i) => {
+        if (Number.isInteger(e)) {
+            result = i;
+        }
+    });
+    return result + 1;
+}
+
+//OUTPUT
+countIntegerNumEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = countInteger();
+    countIntegerNumResultEl.innerHTML = `Kết quả: ${result}`;
+});
+
+// =================================================================================
+// Bài 10: So sánh số lượng số dương và số âm
+//=================================================================================
+//INPUT
+const comparePositiveNegativeEL = $(".comparePositiveNegative");
+const comparePositiveNegativeResultEl = $(".comparePositiveNegative_result");
+
+//HANDLE
+function comparePositiveNegative() {
+    let result = "";
+    const positiveNum = [];
+    const negativeNum = [];
+    numCurrent.forEach((e) => {
+        if (e > 0) {
+            positiveNum.push(e);
+        }
+        if (e < 0) {
+            negativeNum.push(e);
+        }
+    });
+    if (positiveNum.length > negativeNum.length) {
+        result = "số dương > số âm";
+    }
+    if (positiveNum.length < negativeNum.length) {
+        result = "số âm > số dương";
+    }
+    if (positiveNum.length === negativeNum.length) {
+        result = "số âm bằng số dương";
+    }
+
+    return result;
+}
+
+//OUTPUT
+comparePositiveNegativeEL.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const result = comparePositiveNegative();
+    comparePositiveNegativeResultEl.innerHTML = `Kết quả: ${result}`;
+});
