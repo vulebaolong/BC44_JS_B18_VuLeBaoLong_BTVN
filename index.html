@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculator Javascript 16</title>
+
+        <!-- favicon -->
+        <link rel="icon" href="./img/java_script_32.png" sizes="32x32" type="image/png" />
+        <link rel="icon" href="./img/java_script_16.png" sizes="16x16" type="image/png" />
+
+        <!-- BOOTSTRAP -->
+        <link rel="stylesheet" href="./vendor/bootstrap/bootstrap.min.css" />
+
+        <!-- FONT GOOGLE -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- FONT AWESOME -->
+        <link rel="stylesheet" href="./vendor/fontawesome/css/all.min.css" />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="./css/style.css" />
+
+        <!-- ClEAVE -->
+        <script src="./js/cleave/cleave.min.js"></script>
+
+        <!-- JS -->
+        <!-- <script defer src="./js/index.js"></script> -->
+    </head>
+    <body>
+        <section class="calculator-section">
+            <div class="container">
+                <div class="calculator">
+                    <!-- COLOR AND THEME -->
+                    <div class="control">
+                        <div class="change_color">
+                            <label for="customRange1" class="form-label m-0">Color</label>
+                            <input
+                                type="range"
+                                class="form-range"
+                                min="0"
+                                max="360"
+                                id="customRange1"
+                            />
+                        </div>
+                        <div class="toggle_theme">
+                            <i
+                                class="toggle_theme-icon toggle_theme-sun hide fa-solid fa-sun"
+                            ></i>
+                            <i
+                                class="toggle_theme-icon toggle_theme-moon fa-solid fa-moon"
+                            ></i>
+                        </div>
+                    </div>
+
+                    <!-- HEADER TITLE-->
+                    <header class="calculator-header mt-5">
+                        <h1 class="fw-bold text-center">Calculator Javascript 16</h1>
+                    </header>
+
+                    <div class="calculator-content d-flex align-items-start mt-5">
+                        <!-- CONTENT LEFT -->
+                        <div
+                            class="content_left nav flex-column nav-pills me-3 gap-1"
+                            id="v-pills-tab"
+                            role="tablist"
+                            aria-orientation="vertical"
+                        >
+                            <div class="btn_nav">
+                                <i class="fa-solid fa-chevron-right"></i>
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </div>
+
+                            <!-- TÍNH TỔNG SỐ DƯƠNG -->
+                            <button
+                                class="nav-link active fw-semibold"
+                                id="calTotalPositiveNum"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-calTotalPositiveNum"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-calTotalPositiveNum"
+                                aria-selected="true"
+                            >
+                                Bài 1
+                            </button>
+
+                            <!-- ĐẾM SỐ DƯƠNG-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="calCountPositiveNum"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-calCountPositiveNum"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-calCountPositiveNum"
+                                aria-selected="false"
+                            >
+                                Bài 2
+                            </button>
+
+                            <!-- TÌM SỐ NHỎ NHẤT-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="findNumMin"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-findNumMin"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-findNumMin"
+                                aria-selected="false"
+                            >
+                                Bài 3
+                            </button>
+
+                            <!-- TÌM SỐ DƯƠNG NHỎ NHẤT-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="findNumPositiveMin"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-findNumPositiveMin"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-findNumPositiveMin"
+                                aria-selected="false"
+                            >
+                                Bài 4
+                            </button>
+
+                            <!-- TÌM SỐ CHẴN CUỐI CÙNG-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="findEvenNumFinal"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-findEvenNumFinal"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-findEvenNumFinal"
+                                aria-selected="false"
+                            >
+                                Bài 5
+                            </button>
+
+                            <!-- ĐỔI CHỖ-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="reversePositionNum"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-reversePositionNum"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-reversePositionNum"
+                                aria-selected="false"
+                            >
+                                Bài 6
+                            </button>
+
+                            <!-- ĐỔI CHỖ-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="sortUp"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-sortUp"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-sortUp"
+                                aria-selected="false"
+                            >
+                                Bài 7
+                            </button>
+
+                            <!-- TÌM SỐ NGUYÊN TỐ ĐẦU TIÊN-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="findPrimeNumFirst"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-findPrimeNumFirst"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-findPrimeNumFirst"
+                                aria-selected="false"
+                            >
+                                Bài 8
+                            </button>
+
+                            <!-- ĐẾM SỐ NGUYÊN-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="countIntegerNum"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-countIntegerNum"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-countIntegerNum"
+                                aria-selected="false"
+                            >
+                                Bài 9
+                            </button>
+
+                            <!-- SO SÁNH SỐ LƯỢNG SỐ DƯƠNG VÀ SỐ ÂM-->
+                            <button
+                                class="nav-link fw-semibold"
+                                id="comparePositiveNegative"
+                                data-bs-toggle="pill"
+                                data-bs-target="#v-comparePositiveNegative"
+                                type="button"
+                                role="tab"
+                                aria-controls="v-comparePositiveNegative"
+                                aria-selected="false"
+                            >
+                                Bài 10
+                            </button>
+                        </div>
+
+                        <!-- CONTENT RIGHT -->
+                        <div class="content_right">
+                            <form class="num d-flex flex-column gap-2 p-3">
+                                <div class="form-floating">
+                                    <input
+                                        type="text"
+                                        class="num-input form-control"
+                                        id="num"
+                                        placeholder="Nhập số n"
+                                        required
+                                    />
+                                    <label for="num">Nhập số n</label>
+                                </div>
+                                <div>
+                                    <button
+                                        type="submit"
+                                        class="add_num-btn btn btn-primary"
+                                    >
+                                        Thêm số
+                                    </button>
+                                </div>
+                                <div
+                                    class="add_num-result alert alert-success mt-3 fw-semibold"
+                                    role="alert"
+                                >
+                                    Số hiện có:
+                                </div>
+                            </form>
+                            <div class="tab-content p-3 mt-3" id="v-pills-tabContent">
+                                <!-- TÍNH TỔNG SỐ DƯƠNG -->
+                                <div
+                                    class="tab-pane fade show active"
+                                    id="v-calTotalPositiveNum"
+                                    role="tabpanel"
+                                    aria-labelledby="calTotalPositiveNum"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-semibold">Tổng số dương</h3>
+                                    <form
+                                        class="calTotalPositiveNum d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="calTotalPositiveNum_btn-submit btn btn-primary"
+                                            >
+                                                Tính tổng
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="calTotalPositiveNum_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- ĐẾM SỐ DƯƠNG-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-calCountPositiveNum"
+                                    role="tabpanel"
+                                    aria-labelledby="calCountPositiveNum"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Đếm số dương</h3>
+                                    <form
+                                        class="calCountPositiveNum d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="calCountPositiveNum_btn-submit btn btn-primary"
+                                            >
+                                                Đếm số
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="calCountPositiveNum_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- TÌM SỐ NHỎ NHẤT-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-findNumMin"
+                                    role="tabpanel"
+                                    aria-labelledby="findNumMin"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Tìm số nhỏ nhất</h3>
+                                    <form
+                                        class="findNumMin d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="findNumMin_btn-submit btn btn-primary"
+                                            >
+                                                Tìm số nhỏ nhất
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="findNumMin_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- TÌM SỐ DƯƠNG NHỎ NHẤT-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-findNumPositiveMin"
+                                    role="tabpanel"
+                                    aria-labelledby="findNumPositiveMin"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Tìm số dương nhỏ nhất</h3>
+                                    <form
+                                        class="findNumPositiveMin d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="findNumPositiveMin_btn-submit btn btn-primary"
+                                            >
+                                                Tìm số dương nhỏ nhất
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="findNumPositiveMin_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- TÌM SỐ CHẴN CUỐI CÙNG-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-findEvenNumFinal"
+                                    role="tabpanel"
+                                    aria-labelledby="findEvenNumFinal"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Tìm số chẵn cuối cùng</h3>
+                                    <form
+                                        class="findEvenNumFinal d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="findEvenNumFinal_btn-submit btn btn-primary"
+                                            >
+                                                Tìm số chẵn
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="findEvenNumFinal_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- ĐỔI CHỖ -->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-reversePositionNum"
+                                    role="tabpanel"
+                                    aria-labelledby="reversePositionNum"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Đổi chỗ</h3>
+                                    <form
+                                        class="reversePositionNum d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div class="form-floating">
+                                            <input
+                                                type="text"
+                                                class="reversePositionNum-1 form-control"
+                                                id="reversePositionNumName"
+                                                placeholder="Nhập vị trí số 1"
+                                                required
+                                            />
+                                            <label for="reversePositionNum-Name"
+                                                >Nhập vị trí số 1</label
+                                            >
+                                        </div>
+                                        <div class="form-floating">
+                                            <input
+                                                type="text"
+                                                class="reversePositionNum-2 form-control"
+                                                id="reversePositionNumName"
+                                                placeholder="Nhập vị trí số 2"
+                                                required
+                                            />
+                                            <label for="reversePositionNum-Name"
+                                                >Nhập vị trí số 2</label
+                                            >
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="reversePositionNum_btn-submit btn btn-primary"
+                                            >
+                                                Đổi chỗ
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="reversePositionNum_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Mảng sau khi đổi:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- SẮP XẾP TĂNG DẦN-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-sortUp"
+                                    role="tabpanel"
+                                    aria-labelledby="sortUp"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Sắp xếp tăng dần</h3>
+                                    <form class="sortUp d-flex flex-column gap-2 mt-4">
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="sortUp_btn-submit btn btn-primary"
+                                            >
+                                                Sắp xếp
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="sortUp_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- TÌM SỐ NGUYÊN TỐ ĐẦU TIỀN-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-findPrimeNumFirst"
+                                    role="tabpanel"
+                                    aria-labelledby="findPrimeNumFirst"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Tìm số nguyên tố đầu tiên</h3>
+                                    <form
+                                        class="findPrimeNumFirst d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="findPrimeNumFirst_btn-submit btn btn-primary"
+                                            >
+                                                Tìm số nguyên tố
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="findPrimeNumFirst_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- ĐẾM SỐ NGUYÊN -->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-countIntegerNum"
+                                    role="tabpanel"
+                                    aria-labelledby="countIntegerNum"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">Đếm số nguyên</h3>
+                                    <form
+                                        class="countIntegerNum d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div class="form-floating">
+                                            <input
+                                                type="text"
+                                                class="countIntegerNumName form-control"
+                                                id="countIntegerNum-addNum"
+                                                placeholder="Nhập số"
+                                                required
+                                            />
+                                            <label for="countIntegerNumName"
+                                                >Nhập số</label
+                                            >
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="countIntegerNum_btn-addNum btn btn-primary"
+                                            >
+                                                Thêm số
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="countIntegerNum_result-addnum alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Sau khi thêm số:
+                                        </div>
+                                        <hr />
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="countIntegerNum_btn-submit btn btn-primary"
+                                            >
+                                                Đếm số nguyên
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="countIntegerNum_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <!-- SO SÁNH SỐ LƯỢNG SỐ DƯƠNG VÀ SỐ ÂM-->
+                                <div
+                                    class="tab-pane fade"
+                                    id="v-comparePositiveNegative"
+                                    role="tabpanel"
+                                    aria-labelledby="comparePositiveNegative"
+                                    tabindex="0"
+                                >
+                                    <h3 class="fw-bold">
+                                        So sánh số lượng số dương và số âm
+                                    </h3>
+                                    <form
+                                        class="comparePositiveNegative d-flex flex-column gap-2 mt-4"
+                                    >
+                                        <div>
+                                            <button
+                                                type="submit"
+                                                class="comparePositiveNegative_btn-submit btn btn-primary"
+                                            >
+                                                So sánh
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="comparePositiveNegative_result alert alert-success mt-3 fw-semibold"
+                                            role="alert"
+                                        >
+                                            Kết quả:
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOTSTRAP -->
+        <script src="./vendor/bootstrap/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
