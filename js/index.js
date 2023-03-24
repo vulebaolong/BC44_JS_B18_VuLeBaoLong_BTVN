@@ -60,6 +60,7 @@ const tooltipList = [...tooltipTriggerList].map(
 const numForm = $(".num");
 const numInputEl = $(".num-input");
 const addNumResultEl = $(".add_num-result");
+const btnClear = $(".add_num-btn-clear");
 let numCurrent = [];
 
 //HANDLE
@@ -75,6 +76,10 @@ numForm.addEventListener("submit", function (e) {
     const result = addNum();
     addNumResultEl.innerHTML = `Số hiện có: ${result.join(" | ")}`;
 });
+btnClear.addEventListener("click", () => {
+    numCurrent = [];
+    addNumResultEl.innerHTML = `Số hiện có: `;
+});
 
 // =================================================================================
 // Bài 1: Tính tổng số dương
@@ -84,7 +89,7 @@ const calTotalPositiveNumForm = $(".calTotalPositiveNum");
 const calTotalPositiveNumResultEL = $(".calTotalPositiveNum_result");
 
 //HANDLE
-function calMark() {
+function TotalPositive() {
     let result = 0;
     numCurrent.forEach((e) => {
         if (e > 0) {
@@ -97,38 +102,31 @@ function calMark() {
 //OUTPUT
 calTotalPositiveNumForm.addEventListener("submit", function (e) {
     e.preventDefault();
-    const result = calMark();
+    const result = TotalPositive();
     calTotalPositiveNumResultEL.innerHTML = `Kết quả: ${result}`;
 });
 
 // =================================================================================
-// Bài 2: Tính tổng
+// Bài 2: Đếm số dương
 //=================================================================================
 //INPUT
-// const calSumEl = $(".calSum");
-// const calSumResultEL = $(".calSum_result");
-// const calSumInputXEL = $(".calSum_input-x");
-// const calSumInputNEL = $(".calSum_input-n");
+const calCountPositiveNumEl = $(".calCountPositiveNum");
+const calCountPositiveNumResultEL = $(".calCountPositiveNum_result");
 
-//HANDLE
-// function calSum() {
-//     let x = +calSumInputXEL.value;
-//     let n = +calSumInputNEL.value;
-//     let count = n;
-//     for (let i = 1; i <= count; i++) {
-//         if (i > 1) {
-//             n = n + Math.pow(x, i);
-//         }
-//     }
-//     return n;
-// }
+// HANDLE;
+function countPositive() {
+    const result = numCurrent.filter((e) => {
+        return e > 0;
+    });
+    return result.length;
+}
 
 //OUTPUT
-// calSumEl.addEventListener("submit", function (e) {
-//     e.preventDefault();
-//     const result = calSum();
-//     calSumResultEL.innerHTML = `Kết quả: ${result}`;
-// });
+calCountPositiveNumEl.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const result = countPositive();
+    calCountPositiveNumResultEL.innerHTML = `Kết quả: ${result}`;
+});
 
 // =================================================================================
 // Bài 3: Tính giai thừa

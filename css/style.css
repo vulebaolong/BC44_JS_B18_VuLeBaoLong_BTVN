@@ -290,6 +290,7 @@ body {
 }
 
 /* style tooltip bs */
-em {
+em,
+b {
     color: var(--color-bg-1);
 }
