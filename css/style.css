@@ -7,7 +7,7 @@
 :root {
     /* hsl(340, 83%, 69%) */
     /* hsl(14, 100%, 72%) */
-    --hue: 290;
+    --hue: 333;
 
     --color-primary-1: hsl(var(--hue), 100%, 72%);
     --color-primary-2: hsl(calc(var(--hue) + 326), 83%, 69%);

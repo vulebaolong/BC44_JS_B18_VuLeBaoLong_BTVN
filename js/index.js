@@ -3,6 +3,7 @@
     numeral: true,
 }); */
 const $ = (e) => document.querySelector(e);
+const $$ = (e) => document.querySelectorAll(e);
 
 const btnNav = $(".btn_nav");
 const contentLeft = $(".content_left");
@@ -80,6 +81,31 @@ btnClear.addEventListener("click", () => {
     numCurrent = [];
     addNumResultEl.innerHTML = `Số hiện có: `;
 });
+
+// =================================================================================
+// EVENT CLICK BTN
+//=================================================================================
+let initBtn = "Bài 1";
+const btnParent = $(".content_left");
+btnParent.addEventListener("click", (e) => {
+    const arrList = [...e.target.classList];
+    const textBtn = e.target.textContent.trim();
+
+    if (!arrList.includes("nav-link")) return;
+    if (textBtn !== initBtn) {
+        console.log(textBtn);
+        initBtn = textBtn;
+        addNumResultEl.innerHTML = `Số hiện có: ${numCurrent.join(" | ")}`;
+    }
+});
+
+function focusArr(arrIndex) {
+    let arrFocus = [...numCurrent];
+    arrIndex.forEach((e) => {
+        arrFocus[e] = `<span class="text-danger">${arrFocus[e]}</span>`;
+    });
+    addNumResultEl.innerHTML = `Số hiện có: ${arrFocus.join(" | ")}`;
+}
 
 // =================================================================================
 // Bài 1: Tính tổng số dương
@@ -163,11 +189,14 @@ const findNumPositiveMinResultEl = $(".findNumPositiveMin_result");
 //HANDLE
 function findNumPositiveMin() {
     let result = numCurrent[0];
-    numCurrent.forEach((e) => {
+    let arrIndex = [];
+    numCurrent.forEach((e, i) => {
         if (e < result && e > 0) {
             result = e;
+            arrIndex[0] = i;
         }
     });
+    focusArr(arrIndex);
     return result;
 }
 
@@ -186,7 +215,7 @@ const findEvenNumFinalEL = $(".findEvenNumFinal");
 const findEvenNumFinalResultEl = $(".findEvenNumFinal_result");
 
 //HANDLE
-function findNumPositiveMin() {
+function findEvenNumFinal() {
     let result = "Không có số chẵn";
     numCurrent.forEach((e) => {
         if (e % 2 === 0) {
@@ -199,7 +228,7 @@ function findNumPositiveMin() {
 //OUTPUT
 findEvenNumFinalEL.addEventListener("submit", (e) => {
     e.preventDefault();
-    const result = findNumPositiveMin();
+    const result = findEvenNumFinal();
     findEvenNumFinalResultEl.innerHTML = `Kết quả: ${result}`;
 });
 
@@ -217,9 +246,17 @@ function reversePositionNum() {
     let result = "Không có số chẵn";
     const i1 = +reversePositionNum1El.value;
     const i2 = +reversePositionNum2El.value;
+
     result = [...numCurrent];
+    const length = result.length - 1;
+    if (i1 === length || i2 === length) {
+        return "vị trí số 1 hoặc số 2 không hợp lệ";
+    }
     [result[i2], result[i1]] = [result[i1], result[i2]];
-    return result;
+    return result
+        .join(" | ")
+        .replace(result[i2], `<span class="text-danger">${result[i2]}</span>`)
+        .replace(result[i1], `<span class="text-danger">${result[i1]}</span>`);
 }
 
 //OUTPUT
@@ -256,7 +293,7 @@ function sortUp() {
         //hoán đổi
         [result[min], result[i]] = [result[i], result[min]];
     }
-    return result;
+    return result.join(" | ");
 }
 
 //OUTPUT
