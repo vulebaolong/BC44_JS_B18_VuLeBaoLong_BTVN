@@ -1,3 +1,4 @@
+"use strict";
 // import Cleave from "./cleave/cleave.min.js";
 /*new Cleave(".calTncnTotal", {
     numeral: true,
@@ -76,6 +77,11 @@ numForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const result = addNum();
     addNumResultEl.innerHTML = `Số hiện có: ${result.join(" | ")}`;
+
+    const key = `Bài_${currentBtn.slice(-1)}`;
+    if (disPlayNumCurrent.hasOwnProperty(key)) {
+        focusNumCurrent(key, disPlayNumCurrent[key]);
+    }
 });
 btnClear.addEventListener("click", () => {
     numCurrent = [];
@@ -85,27 +91,41 @@ btnClear.addEventListener("click", () => {
 // =================================================================================
 // EVENT CLICK BTN
 //=================================================================================
-let initBtn = "Bài 1";
-const btnParent = $(".content_left");
-btnParent.addEventListener("click", (e) => {
+let currentBtn = "Bài 1";
+//obj này để lưu thông tin những bài tập đã có kết quả
+let disPlayNumCurrent = {};
+
+//xử lý khi click lại btn bài đã có kết quả
+function handleBtn(e) {
     const arrList = [...e.target.classList];
-    const textBtn = e.target.textContent.trim();
+    const textBtnClick = e.target.textContent.trim();
+    const key = `Bài_${textBtnClick.slice(-1)}`;
 
     if (!arrList.includes("nav-link")) return;
-    if (textBtn !== initBtn) {
-        console.log(textBtn);
-        initBtn = textBtn;
-        addNumResultEl.innerHTML = `Số hiện có: ${numCurrent.join(" | ")}`;
-    }
-});
+    if (textBtnClick === currentBtn) return;
+    currentBtn = textBtnClick;
+    addNumResultEl.innerHTML = `Số hiện có: ${numCurrent.join(" | ")}`;
 
-function focusArr(arrIndex) {
+    if (disPlayNumCurrent.hasOwnProperty(key)) {
+        focusNumCurrent(key, disPlayNumCurrent[key]);
+    }
+}
+
+// hiển thị màu kết quả và lưu kết quả đó vào disPlayNumCurrent
+function focusNumCurrent(key, arrIndex) {
     let arrFocus = [...numCurrent];
     arrIndex.forEach((e) => {
         arrFocus[e] = `<span class="text-danger">${arrFocus[e]}</span>`;
     });
     addNumResultEl.innerHTML = `Số hiện có: ${arrFocus.join(" | ")}`;
+
+    //lưu thông tin bài tập đã có kết quả
+    disPlayNumCurrent[`${key}`] = arrIndex;
+    console.log(disPlayNumCurrent);
 }
+
+const btnParent = $(".content_left");
+btnParent.addEventListener("click", handleBtn);
 
 // =================================================================================
 // Bài 1: Tính tổng số dương
@@ -164,11 +184,14 @@ const findNumMinResultEl = $(".findNumMin_result");
 //HANDLE
 function countMinNum() {
     let result = numCurrent[0];
-    numCurrent.forEach((e) => {
+    let indexArr = [0];
+    numCurrent.forEach((e, i) => {
         if (e < result) {
+            indexArr[0] = i;
             result = e;
         }
     });
+    focusNumCurrent("Bài_3", indexArr);
     return result;
 }
 
@@ -188,15 +211,22 @@ const findNumPositiveMinResultEl = $(".findNumPositiveMin_result");
 
 //HANDLE
 function findNumPositiveMin() {
-    let result = numCurrent[0];
-    let arrIndex = [];
+    let arrIndex = [
+        numCurrent.findIndex((e) => {
+            return e > 0;
+        }),
+    ];
+    let result = numCurrent.find((e) => {
+        return e > 0;
+    });
     numCurrent.forEach((e, i) => {
-        if (e < result && e > 0) {
+        if (e < 1) return;
+        if (e < result) {
             result = e;
             arrIndex[0] = i;
         }
     });
-    focusArr(arrIndex);
+    focusNumCurrent("Bài_4", arrIndex);
     return result;
 }
 
@@ -217,11 +247,14 @@ const findEvenNumFinalResultEl = $(".findEvenNumFinal_result");
 //HANDLE
 function findEvenNumFinal() {
     let result = "Không có số chẵn";
-    numCurrent.forEach((e) => {
+    let indexArr = [0];
+    numCurrent.forEach((e, i) => {
         if (e % 2 === 0) {
+            indexArr[0] = i;
             result = e;
         }
     });
+    focusNumCurrent("Bài_5", indexArr);
     return result;
 }
 
@@ -243,20 +276,20 @@ const reversePositionNum2El = $(".reversePositionNum-2");
 
 //HANDLE
 function reversePositionNum() {
-    let result = "Không có số chẵn";
+    let result = [...numCurrent];
     const i1 = +reversePositionNum1El.value;
     const i2 = +reversePositionNum2El.value;
 
-    result = [...numCurrent];
     const length = result.length - 1;
-    if (i1 === length || i2 === length) {
+    if (i1 > length || i2 > length) {
         return "vị trí số 1 hoặc số 2 không hợp lệ";
     }
+    focusNumCurrent("Bài_6", [i1, i2]);
+    //hoán đổi
     [result[i2], result[i1]] = [result[i1], result[i2]];
-    return result
-        .join(" | ")
-        .replace(result[i2], `<span class="text-danger">${result[i2]}</span>`)
-        .replace(result[i1], `<span class="text-danger">${result[i1]}</span>`);
+    result[i1] = `<span class="text-danger">${result[i1]}</span>`;
+    result[i2] = `<span class="text-danger">${result[i2]}</span>`;
+    return result.join(" | ");
 }
 
 //OUTPUT
@@ -320,13 +353,18 @@ function isPrime(n) {
             return false;
         }
     }
+
     return -1;
 }
 function findPrimeNum() {
+    let arrIndex = [0];
+
     let result = -1;
-    result = numCurrent.find((e) => {
+    result = numCurrent.find((e, i) => {
         return isPrime(e);
     });
+    focusNumCurrent("Bài_8", [numCurrent.indexOf(result)]);
+
     result = result || -1;
     return result;
 }
@@ -347,7 +385,7 @@ const countIntegerNumResultEl = $(".countIntegerNum_result");
 
 //HANDLE
 function countInteger() {
-    result = -1;
+    let result = -1;
     numCurrent.forEach((e, i) => {
         if (Number.isInteger(e)) {
             result = i;
