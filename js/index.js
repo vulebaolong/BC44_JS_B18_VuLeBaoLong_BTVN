@@ -1,132 +1,4 @@
-"use strict";
-// import Cleave from "./cleave/cleave.min.js";
-/*new Cleave(".calTncnTotal", {
-    numeral: true,
-}); */
-const $ = (e) => document.querySelector(e);
-const $$ = (e) => document.querySelectorAll(e);
-
-const btnNav = $(".btn_nav");
-const contentLeft = $(".content_left");
-btnNav.addEventListener("click", function () {
-    contentLeft.classList.toggle("show_content_left");
-});
-
-//formart currency
-function formatCurrency(num, locale = navigator.language) {
-    return new Intl.NumberFormat(locale).format(num);
-}
-const toggleTheme = $(".toggle_theme");
-const toggleThemeSun = $(".toggle_theme-sun");
-const toggleThemeMoon = $(".toggle_theme-moon");
-const htmlEl = $("html");
-
-//button click change theme dark and light
-toggleTheme.addEventListener("click", (e) => {
-    console.log(e.target.classList);
-    function toggleDisplay(params) {
-        toggleThemeSun.classList.toggle("hide");
-        toggleThemeMoon.classList.toggle("hide");
-    }
-    if (e.target.classList.contains("toggle_theme-sun")) {
-        toggleDisplay();
-        htmlEl.attributes["data-bs-theme"].value = "light";
-    }
-    if (e.target.classList.contains("toggle_theme-moon")) {
-        toggleDisplay();
-        htmlEl.attributes["data-bs-theme"].value = "dark";
-    }
-    // e.target.closest(".toggle_theme-sun")
-});
-
-//input type range change color
-const inputChangeColor = document.querySelector(".form-range");
-const root = document.querySelector(":root");
-inputChangeColor.addEventListener("input", function name() {
-    console.log(inputChangeColor.value);
-    root.style.setProperty("--hue", inputChangeColor.value);
-});
-
-// =================================================================================
-// BS5 TOOLTIP
-//=================================================================================
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-const tooltipList = [...tooltipTriggerList].map(
-    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-);
-
-// =================================================================================
-// NUMBER CURRENT
-//=================================================================================
-//INPUT
-const numForm = $(".num");
-const numInputEl = $(".num-input");
-const addNumResultEl = $(".add_num-result");
-const btnClear = $(".add_num-btn-clear");
-let numCurrent = [];
-
-//HANDLE
-function addNum(params) {
-    numCurrent.push(+numInputEl.value);
-    numInputEl.value = "";
-    return numCurrent;
-}
-
-//OUTPUT
-numForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const result = addNum();
-    addNumResultEl.innerHTML = `Số hiện có: ${result.join(" | ")}`;
-
-    const key = `Bài_${currentBtn.slice(-1)}`;
-    if (disPlayNumCurrent.hasOwnProperty(key)) {
-        focusNumCurrent(key, disPlayNumCurrent[key]);
-    }
-});
-btnClear.addEventListener("click", () => {
-    numCurrent = [];
-    addNumResultEl.innerHTML = `Số hiện có: `;
-});
-
-// =================================================================================
-// EVENT CLICK BTN
-//=================================================================================
-let currentBtn = "Bài 1";
-//obj này để lưu thông tin những bài tập đã có kết quả
-let disPlayNumCurrent = {};
-
-//xử lý khi click lại btn bài đã có kết quả
-function handleBtn(e) {
-    const arrList = [...e.target.classList];
-    const textBtnClick = e.target.textContent.trim();
-    const key = `Bài_${textBtnClick.slice(-1)}`;
-
-    if (!arrList.includes("nav-link")) return;
-    if (textBtnClick === currentBtn) return;
-    currentBtn = textBtnClick;
-    addNumResultEl.innerHTML = `Số hiện có: ${numCurrent.join(" | ")}`;
-
-    if (disPlayNumCurrent.hasOwnProperty(key)) {
-        focusNumCurrent(key, disPlayNumCurrent[key]);
-    }
-}
-
-// hiển thị màu kết quả và lưu kết quả đó vào disPlayNumCurrent
-function focusNumCurrent(key, arrIndex) {
-    let arrFocus = [...numCurrent];
-    arrIndex.forEach((e) => {
-        arrFocus[e] = `<span class="text-danger">${arrFocus[e]}</span>`;
-    });
-    addNumResultEl.innerHTML = `Số hiện có: ${arrFocus.join(" | ")}`;
-
-    //lưu thông tin bài tập đã có kết quả
-    disPlayNumCurrent[`${key}`] = arrIndex;
-    console.log(disPlayNumCurrent);
-}
-
-const btnParent = $(".content_left");
-btnParent.addEventListener("click", handleBtn);
-
+import { $, state, highlight } from "./system.js";
 // =================================================================================
 // Bài 1: Tính tổng số dương
 //=================================================================================
@@ -137,7 +9,7 @@ const calTotalPositiveNumResultEL = $(".calTotalPositiveNum_result");
 //HANDLE
 function TotalPositive() {
     let result = 0;
-    numCurrent.forEach((e) => {
+    state.arrNumQuestion.forEach((e) => {
         if (e > 0) {
             result += e;
         }
@@ -161,7 +33,7 @@ const calCountPositiveNumResultEL = $(".calCountPositiveNum_result");
 
 // HANDLE;
 function countPositive() {
-    const result = numCurrent.filter((e) => {
+    const result = state.arrNumQuestion.filter((e) => {
         return e > 0;
     });
     return result.length;
@@ -183,15 +55,15 @@ const findNumMinResultEl = $(".findNumMin_result");
 
 //HANDLE
 function countMinNum() {
-    let result = numCurrent[0];
+    let result = state.arrNumQuestion[0];
     let indexArr = [0];
-    numCurrent.forEach((e, i) => {
+    state.arrNumQuestion.forEach((e, i) => {
         if (e < result) {
             indexArr[0] = i;
             result = e;
         }
     });
-    focusNumCurrent("Bài_3", indexArr);
+    highlight("Bài_3", indexArr);
     return result;
 }
 
@@ -212,21 +84,21 @@ const findNumPositiveMinResultEl = $(".findNumPositiveMin_result");
 //HANDLE
 function findNumPositiveMin() {
     let arrIndex = [
-        numCurrent.findIndex((e) => {
+        state.arrNumQuestion.findIndex((e) => {
             return e > 0;
         }),
     ];
-    let result = numCurrent.find((e) => {
+    let result = state.arrNumQuestion.find((e) => {
         return e > 0;
     });
-    numCurrent.forEach((e, i) => {
+    state.arrNumQuestion.forEach((e, i) => {
         if (e < 1) return;
         if (e < result) {
             result = e;
             arrIndex[0] = i;
         }
     });
-    focusNumCurrent("Bài_4", arrIndex);
+    highlight("Bài_4", arrIndex);
     return result;
 }
 
@@ -248,13 +120,13 @@ const findEvenNumFinalResultEl = $(".findEvenNumFinal_result");
 function findEvenNumFinal() {
     let result = "Không có số chẵn";
     let indexArr = [0];
-    numCurrent.forEach((e, i) => {
+    state.arrNumQuestion.forEach((e, i) => {
         if (e % 2 === 0) {
             indexArr[0] = i;
             result = e;
         }
     });
-    focusNumCurrent("Bài_5", indexArr);
+    highlight("Bài_5", indexArr);
     return result;
 }
 
@@ -276,7 +148,7 @@ const reversePositionNum2El = $(".reversePositionNum-2");
 
 //HANDLE
 function reversePositionNum() {
-    let result = [...numCurrent];
+    let result = [...state.arrNumQuestion];
     const i1 = +reversePositionNum1El.value;
     const i2 = +reversePositionNum2El.value;
 
@@ -284,7 +156,7 @@ function reversePositionNum() {
     if (i1 > length || i2 > length) {
         return "vị trí số 1 hoặc số 2 không hợp lệ";
     }
-    focusNumCurrent("Bài_6", [i1, i2]);
+    highlight("Bài_6", [i1, i2]);
     //hoán đổi
     [result[i2], result[i1]] = [result[i1], result[i2]];
     result[i1] = `<span class="text-danger">${result[i1]}</span>`;
@@ -308,7 +180,7 @@ const sortUpResultEl = $(".sortUp_result");
 
 //HANDLE
 function sortUp() {
-    const result = [...numCurrent];
+    const result = [...state.arrNumQuestion];
 
     // SẮP XẾP TỪ BÉ ĐẾN LƠN
     // result.sort((a, b) => a - b);
@@ -360,10 +232,10 @@ function findPrimeNum() {
     let arrIndex = [0];
 
     let result = -1;
-    result = numCurrent.find((e, i) => {
+    result = state.arrNumQuestion.find((e, i) => {
         return isPrime(e);
     });
-    focusNumCurrent("Bài_8", [numCurrent.indexOf(result)]);
+    highlight("Bài_8", [state.arrNumQuestion.indexOf(result)]);
 
     result = result || -1;
     return result;
@@ -386,7 +258,7 @@ const countIntegerNumResultEl = $(".countIntegerNum_result");
 //HANDLE
 function countInteger() {
     let result = -1;
-    numCurrent.forEach((e, i) => {
+    state.arrNumQuestion.forEach((e, i) => {
         if (Number.isInteger(e)) {
             result = i;
         }
@@ -413,7 +285,7 @@ function comparePositiveNegative() {
     let result = "";
     const positiveNum = [];
     const negativeNum = [];
-    numCurrent.forEach((e) => {
+    state.arrNumQuestion.forEach((e) => {
         if (e > 0) {
             positiveNum.push(e);
         }
